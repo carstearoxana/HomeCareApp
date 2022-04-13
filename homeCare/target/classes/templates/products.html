@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>produse</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <header class="header" th:insert="fragmentshtml/fragments::topmenu(productsList)"> </header>
+    <div class="mainbody">
+        <div class="leftlist">
+            <button class="leftmenu" onclick="window.location.href='/products/find-all';">Toate produsele</button><br>
+            <button class="leftmenu" onclick="window.location.href='/products/find-all/by-category?categoryName=Menaj';">Menaj</button><br>
+            <button class="leftmenu" onclick="window.location.href='/products/find-all/by-category?categoryName=Bricolaj';">Bricolaj</button><br>
+            <button class="leftmenu" onclick="window.location.href='/products/find-all/by-category?categoryName=Tamplarie';">Tamplarie</button><br>
+            <button class="leftmenu" onclick="window.location.href='/products/find-all/by-category?categoryName=Gatit';">Gatit la domiciliu</button>
+        </div>
+        <div class="displayp" >
+            <tr th:each="product:${productList}">
+                <article>
+                    <div id="prodname"><td th:text="${product.getProductName()}"></td></div>
+                    <h4><td th:text="${product.getProductPrice()}"></td><span> RON</span></h4>
+                    <span style="font-weight:bold" th:if="${product.getAvailable()==TRUE}">
+                        <a th:href="@{'/shoppingCart/add?id='+${product.getProductId()}}">Adauga in cos</a>
+                    </span>
+                    <span style="color:red" th:unless="${product.getAvailable()==TRUE}">Produsul indisponibil</span>
+                    <img th:src="${product.getProductPicture()}" />
+                    <p><td th:text="${product.getProductDescription()}"></td></p>
+                </article>
+            </tr>
+        </div>
+    </div>
+</body>
+</html>

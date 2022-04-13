@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>shoppingCart</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <div class="header" th:insert="fragmentshtml/fragments::topmenu(productsList)"> </div>
+    <div class="mainbody">
+        <div class="displayp">
+            <tr th:each="cartItem:${cartItemList}">
+                <article>
+                    <h3><td th:text="${cartItem.getProduct().productName}"></td></h3>
+                    <td><img th:src="${cartItem.getProduct().productPicture}" width="300"/></td>
+                    <p><td th:text="${cartItem.getProduct().productDescription}"></td></p>
+                    <h4><td th:text="${cartItem.getProduct().getProductPrice()}"></td><span> RON</span></h4>
+                    <a th:href="@{'/shoppingCart/delete?id='+${cartItem.getShoppingCartItemId()}}">Sterge din cos</a>
+                </article>
+            </tr>
+        </div>
+    </div>
+</body>
+</html>
